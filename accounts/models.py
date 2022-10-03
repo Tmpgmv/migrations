@@ -19,7 +19,7 @@ class Customer(models.Model):
     online = models.BooleanField(default=False)
     country = CountryField(blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
-    city = models.FileField(upload_to=user_directory_path)
+    file = models.FileField(upload_to=user_directory_path, null=True, blank=True)
 
     def __str__(self):
         return self.username

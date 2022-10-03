@@ -30,3 +30,5 @@ class Migration(migrations.Migration):
             ],
         ),
     ]
+
+# ('file', models.FileField(blank=True, null=True, upload_to="accounts.models.user_directory_path"))
