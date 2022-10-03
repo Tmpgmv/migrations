@@ -12,8 +12,15 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+from os.path import abspath, dirname, join
+
+def root(*dirs):
+    base_dir = join(dirname(__file__), '..')
+    return abspath(join(base_dir, *dirs))
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = root()
 
 
 # Quick-start development settings - unsuitable for production
@@ -77,7 +84,7 @@ WSGI_APPLICATION = 'trololo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': root('db.sqlite3'),
     }
 }
 
@@ -117,8 +124,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = root('static_root')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+MEDIA_ROOT = root('media')
+
+MEDIA_URL = 'media/'

@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='customer',
             name='file',
-            field=models.FileField(blank=True, null=True, upload_to=accounts.models.user_directory_path),
+            field=models.FileField(blank=True, null=True, upload_to=accounts.models.UploadTo("trololo")),
         ),
     ]

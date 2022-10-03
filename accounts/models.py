@@ -1,10 +1,17 @@
 from django.db import models
+from django.utils.deconstruct import deconstructible
 from django_countries.fields import CountryField
 
 
-def user_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/{1}'.format(instance.user.id, filename)
+@deconstructible
+class UploadTo():
+
+    def __init__(self, a_dir):
+        self.a_dir = a_dir
+
+    def __call__(self, instance, filename):
+        return '{}/{}'.format(self.a_dir,
+                               filename)
 
 
 class Customer(models.Model):
@@ -19,11 +26,12 @@ class Customer(models.Model):
     online = models.BooleanField(default=False)
     country = CountryField(blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
-    file = models.FileField(upload_to=user_directory_path, null=True, blank=True)
+    file = models.FileField(upload_to=UploadTo(a_dir="trololo"),
+                            null=True,
+                            blank=True)
 
     def __str__(self):
         return self.username
-
 
     class Meta:
         ordering = ["id"]
